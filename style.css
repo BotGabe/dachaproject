@@ -1,0 +1,21 @@
+body { margin: 0; }
+canvas { display: block; }
+
+#btn{ 
+  position: absolute;
+  top: 86vh;
+  left: 47vw;
+}
+
+#btn button{
+  background-color: #00f4a0;
+  font-size: 16px;
+  color: #333;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+}
+
+button:focus{
+  border: none;
+}

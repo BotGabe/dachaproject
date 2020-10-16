@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title>Dacha Project</title>
+    <style>
+        body { margin: 0; }
+        canvas { width: 100%; height: 100% }
+    </style>
+</head>
+
+<body>
+<h1 align="center">
+    <div id="btn">
+        <button onClick = "setRotate()" >Запустить/Стоп</button>
+    </div>
+</h1>
+<script src="js/three.js"></script>
+<script src="js/BoxGeometry.js"></script>
+<script src="js/OrbitControls.js"></script>
+<script src="js/BoxBufferGeometry.js"></script>
+<script>
+    var scene = new THREE.Scene();
+
+    var xRotationValue = 0;
+    var yotationValue = 0;
+    var isRotating = false;
+
+    var camera = new THREE.PerspectiveCamera(
+        80,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+    );
+
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    var geometry = new THREE.BoxGeometry(2, 2, 2);
+    var material = new THREE.MeshBasicMaterial({ color: 0x00f4a0 });
+
+    var cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    var material2 = new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 30 });
+    var wireframe = new THREE.LineSegments(geometry, material2);
+    wireframe.renderOrder = 1;
+    scene.add(wireframe);
+
+    camera.position.z = 5;
+
+    function animate() {
+        requestAnimationFrame(animate);
+        cube.rotation.x += xRotationValue;
+        wireframe.rotation.x += xRotationValue;
+        cube.rotation.y += yotationValue;
+        wireframe.rotation.y += yotationValue;
+
+        renderer.render(scene, camera);
+    }
+    function onResize(){
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+    }
+
+
+    animate();
+
+    function setRotate() {
+        isRotating = !isRotating;
+        if (isRotating) {
+            xRotationValue = 0.01;
+            yotationValue = 0.005;
+        } else {
+            xRotationValue = 0;
+            yotationValue = 0;
+        }
+    }
+
+    window.addEventListener( 'resize', onResize, false );
+    </script>
+</body>
+</html>
